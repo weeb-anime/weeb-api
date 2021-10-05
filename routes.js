@@ -11,12 +11,12 @@ function getUser(request, response) {
 }
 
 async function getAnime(request, response) {
-  console.log(request, '<---- REQUEST LOG ---<<<');
-  const title = request.query;
+  const title = request.query.searchQuery;
+  console.log(title, '<---- TITLE LOG ---<<<');
   try {
     API = process.env.ANIME_API;
     animeResponse = await axios.get(API + '/search/anime?q=' + title)
-    response.status(200).send(animeResponse);
+    response.status(200).send(animeResponse.data.results);
     console.log ('--> GET ANIME SUCCESS <---')
 
   } catch (error) {

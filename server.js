@@ -19,6 +19,8 @@ app.get('/', (request, response) => {
   response.send('GEORGE WAS HERE')
 });
 
+app.get('/anime', handlerFunctions.getAnime)
+
 app.get('/user', handlerFunctions.getUser);
 
 app.listen(PORT, () => console.log(`listening on Port ${PORT}`))
