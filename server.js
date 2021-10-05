@@ -1,14 +1,14 @@
 'use strict'
 
+require('dotenv').config()
+
 const express = require('express');
 const cors = require('cors');
 const { response } = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
 const handlerFunctions = require('./routes.js')
-
-require('dotenv').config()
 
 const PORT = process.env.PORT;
 
@@ -20,13 +20,11 @@ app.get('/', (request, response) => {
   response.send('GEORGE WAS HERE')
 });
 
-app.get('/anime', handlerFunctions.getAnime)
+app.get('/anime', handlerFunctions.getAnime);
 
-app.delete('/anime/:id', async(request, response) => {
-  console.log(request)
-})
+app.delete('/anime/:id', handlerFunctions.deleteAnime);
 
 app.get('/user', handlerFunctions.getUser);
-app.get('/anime', handlerFunction.getAnime)
+app.get('/anime', handlerFunctions.getAnime);
 
 app.listen(PORT, () => console.log(`listening on Port ${PORT}`))
