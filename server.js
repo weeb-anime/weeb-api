@@ -19,12 +19,12 @@ app.get('/', (request, response) => {
   response.send('GEORGE WAS HERE')
 });
 
+app.get('/user/:email', handlerFunctions.getUser);
+
 app.get('/anime', handlerFunctions.getAnime);
 
 app.delete('/anime/:id', handlerFunctions.deleteAnime);
 
 app.post('/anime', handlerFunctions.postAnime);
-
-app.get('/user', handlerFunctions.getUser);
 
 app.listen(PORT, () => console.log(`listening on Port ${PORT}`))
