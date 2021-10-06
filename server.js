@@ -6,7 +6,6 @@ const express = require('express');
 const cors = require('cors');
 const { response } = require('express');
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
 
 const handlerFunctions = require('./routes.js')
 
