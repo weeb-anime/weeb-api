@@ -49,4 +49,22 @@ async function deleteAnime(request, response) {
   }
 }
 
-module.exports = {getUser, getAnime, deleteAnime}
+async function postAnime(request, response) {
+  try{
+    const animeInfo = request.body;
+    console.log(request.body, '---> REQUEST <---')
+    const newAnime = await Anime.create({
+      title: animeInfo.title,
+      description: animeInfo.synopsis,
+      image_url: animeInfo.image_url,
+      episodes: animeInfo.episodes,
+      score: animeInfo.score,
+      rating: animeInfo.rated
+    })
+    response.status(201).send(newAnime)
+} catch (error) {
+  console.log('Post anime error')
+  response.status(500).send('Failed to post anime')
+}}
+
+module.exports = {getUser, getAnime, deleteAnime, postAnime}
