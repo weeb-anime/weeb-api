@@ -3,14 +3,18 @@ const Anime = require('./Anime.js')
 const mongoose = require('mongoose');
 const seed = require('./seed.js');
 
-function getUser(request, response) {
-  verifyUser(request, (error, user) => {
-    if (error) {
-      response.send('invalid token');
-    } else {
-      response.send(user);
-    }
-  })
+async function getUser(request, response) {
+  console.log(request.params.email, '<--- REQUEST DOT PARAMS ---<<<')
+  const email = request.params.email;
+
+  try {
+    const foundAnime = await Anime.find({email: email})
+    response.status(200).send(foundAnime)
+    console.log('--> FOUND ANIME SUCCESS! <--')
+  } catch (error) {
+    response.status(400);
+    console.log('--> COULD NOT FIND ANIME <--')
+  }
 }
 
 async function getAnime(request, response) {
@@ -52,14 +56,15 @@ async function deleteAnime(request, response) {
 async function postAnime(request, response) {
   try{
     const animeInfo = request.body;
-    console.log(request.body, '---> REQUEST <---')
+    console.log(request.body, '---> REQUEST DOT PARAMS <---')
     const newAnime = await Anime.create({
       title: animeInfo.title,
       description: animeInfo.synopsis,
       image_url: animeInfo.image_url,
       episodes: animeInfo.episodes,
       score: animeInfo.score,
-      rating: animeInfo.rated
+      rating: animeInfo.rated,
+      email: animeInfo.email
     })
     response.status(201).send(newAnime)
 } catch (error) {

@@ -11,7 +11,8 @@ const animeSchema = new Schema({
     image_url: String,
     episodes: Number,
     score: Number,
-    rating: String
+    rating: String,
+    email: String
 });
 
 const Anime = mongoose.model('Anime', animeSchema);
