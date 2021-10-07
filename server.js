@@ -25,6 +25,8 @@ app.get('/anime', handlerFunctions.getAnime);
 
 app.delete('/anime/:id', handlerFunctions.deleteAnime);
 
+app.put('/anime/:id', handlerFunctions.putAnime);
+
 app.post('/anime', handlerFunctions.postAnime);
 
 app.listen(PORT, () => console.log(`listening on Port ${PORT}`))

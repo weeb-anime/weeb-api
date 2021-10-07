@@ -53,6 +53,27 @@ async function deleteAnime(request, response) {
   }
 }
 
+async function putAnime(request, response) {
+  const id = request.params.id;
+  const info = request.body;
+
+    try {
+      const animeToUpdate = await Anime.findOne({_id: id});
+
+      if (!animeToUpdate) {
+        response.status(400).send('---> ANIME CANNOT BE UPDATED <---');
+        return;
+      } 
+
+      const updatedAnime = await Anime.findByIdAndUpdate(id, info, {new: true});
+      console.log(updatedAnime, '<---- UPDATED ANIME LOG ---<<<')
+      response.status(200).send(updatedAnime);
+
+    } catch (error) {
+      response.status(400).send(error, '<---- PUT ANIME ERROR LOG ---<<<');
+    }
+};
+
 async function postAnime(request, response) {
   try{
     const animeInfo = request.body;
@@ -64,7 +85,8 @@ async function postAnime(request, response) {
       episodes: animeInfo.episodes,
       score: animeInfo.score,
       rating: animeInfo.rated,
-      email: animeInfo.email
+      email: animeInfo.email,
+      user_comment: animeInfo.comment
     })
     response.status(201).send(newAnime)
 } catch (error) {
@@ -72,4 +94,4 @@ async function postAnime(request, response) {
   response.status(500).send('Failed to post anime')
 }}
 
-module.exports = {getUser, getAnime, deleteAnime, postAnime}
+module.exports = {getUser, getAnime, deleteAnime, postAnime, putAnime}
